@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>腾讯微博</title>
+<style type="text/css">
+*{margin:0px; padding:0px;}
+body{ width:100%;height:100%;background:rgba(102,102,102,1);}
+
+.wrap{  background:#fff; margin:0px auto;width:500px; border-radius:5px; margin-top:10px; padding-bottom:10px; height:100% }
+.top{ padding:20px; padding-bottom:5px; background:url(%E8%85%BE%E8%AE%AF%E5%BE%AE%E5%8D%9A/topBack.png) top left repeat-x;}
+.top h3{ font-weight:normal; }
+.user-name input{ width:162px; height:28px; border-radius:5px; float:left; margin-right:10px; text-indent:0.5em;}
+.user-head img{ width:30px; height:30px;border-radius:2px; opacity:0.3;filter:alpha(opacity=30); margin-right:-2px;}
+.imgChange{width:30px; height:30px;border:1px solid red; border-radius:2px;opacity:1 !important;filter:alpha(opacity=100) !important;margin-right:-2px;}
+
+.user-head{ display:inline-block;float:left;}
+.user-name{ overflow:hidden;margin-bottom:10px;}
+.user-say{width:458px; height:70px; padding-top:0.5em;border-radius:5px; margin-bottom:10px; text-indent:0.5em;}
+.user-say-wrap{ overflow:hidden; margin-bottom:10px;}
+.broadcast{ float:right;color:#999; font-size:12px;}
+.broadcast button{ width:110px; height:28px; border-radius:5px; border:none;background:url(%E8%85%BE%E8%AE%AF%E5%BE%AE%E5%8D%9A/btn.png) no-repeat top left; margin-left:20px;}
+.main{ width:480px; height:auto; margin:0 auto; margin-top:10px;}
+.main h3{ height:33px;font-size:14px; font-weight:normal; width:100%; position:relative;background:#e3e3e3; overflow:hidden;}
+.main h3 span{height:28px;line-height:28px;position:absolute;top:8px;left:8px;background:#fff; padding:0 8px;}
+.main ul{ background:#fff;}
+.main li{ list-style:none; height:52px; padding:10px 0; border-bottom:1px dashed #d8d8d8; }
+.user,.time-wrap{ float:left;}
+.time-wrap{ margin-left:10px;}
+.time-wrap span{ cursor:pointer;}
+.time{ margin-top:10px;color:#889db6;font: 12px/18px arial; position:relative;}
+.del{ width:24px; position:absolute;left:380px; top:0px; display:none;}
+.back{background:#f5f5f5;;}
+.back .del{display:block !important;}
+</style>
+
+</head>
+
+<body>
+<div class="wrap">
+  <div class="top">
+   <form method="post" id="form1">
+     <h3>来，说说你在做什么，想什么</h3>
+     <div class="user-name">
+       <input type="text" value=""  />
+       <div class="user-head">
+        <img src="腾讯微博/face1.gif" />
+        <img src="腾讯微博/face2.gif" />
+        <img src="腾讯微博/face3.gif" />
+        <img src="腾讯微博/face4.gif" />
+        <img src="腾讯微博/face5.gif" />
+        <img src="腾讯微博/face6.gif" />
+        <img src="腾讯微博/face7.gif" />
+        <img src="腾讯微博/face8.gif" />
+        </div>
+     </div>
+     
+     <div class="user-say-wrap">
+      <textarea class="user-say" value="" id="inputConten" maxlength="150"></textarea>
+      <p class="broadcast">还能输入<span>150</span>个字
+      <button type="button" ></button>
+      </p>     
+    </div>
+  </form>
+  </div>
+  <div class="main">
+     <h3><span>大家在说</span></h3>
+     <ul class="main-ul">
+       <li id="copy">
+        <div class="user"> 
+          <img src="腾讯微博/face2.gif" />
+        </div>
+        <div class="time-wrap">
+          <p><span>huihui</span>:<span>试试罗1</span></p>
+          <div class="time"><span class="time-change">12月12日 9:00</span><span class="del">删除</span></div>
+        </div>
+       </li>
+  
+       <li>
+        <div class="user"> 
+          <img src="腾讯微博/face2.gif" />
+        </div>
+        <div class="time-wrap">
+          <p><span>huihui</span>:<span>试试罗2</span></p>
+        <div class="time"><span class="time-change">12月12日 9:00</span><span class="del">删除</span></div>
+        </div>
+       </li>
+       
+       <li>
+        <div class="user"> 
+          <img src="腾讯微博/face2.gif" /></div>
+        <div class="time-wrap">
+          <p><span>huihui</span>:<span>试试罗3</span></p>
+        <div class="time"><span class="time-change">12月12日 9:00</span><span class="del">删除</span></div>
+        </div>
+       </li>
+       
+       <li>
+        <div class="user"> 
+          <img src="腾讯微博/face2.gif" />
+        </div>
+        <div class="time-wrap">
+          <p><span>huihui</span>:<span>试试罗4</span></p>
+        <div class="time"><span class="time-change">12月12日 9:00</span><span class="del">删除</span></div>
+        </div>
+       </li>
+    
+       
+    
+       
+     </ul>
+  </div>
+</div>
+<script type="text/javascript">
+
+window.onload=function(){
+	   mv.view.changeOpacity();
+	   mv.model.date();
+	   mv.view.changeDel();
+};
+
+
+var mv = {};
+
+mv.model = {};
+
+mv.model.date=function(){
+   var form = document.getElementById("form1");
+   var oText = 	form.elements[0];
+   var oTextarea = form.elements[1];
+   var oBtn = form.elements[2];
+   var event=mv.control.EventUtil.getEvent(event);
+   var oUl=document.getElementsByClassName("main-ul")[0];
+   
+   
+   var submitHandler = function(event){
+	   var node = document.createElement("li");
+
+       node.innerHTML = '<div class=\"user\">\
+                         <img src=\"" /></div>\
+                         <div class=\"time-wrap\">\
+                         <p><span></span>:<span></span></p>\
+                         <div class=\"time\"><span class=\"time-change\"></span><span class=\"del\">删除</span></div>\
+                         </div>';
+	   
+	   var reg=/^[a-zA-Z0-9_u4e00-u9fa5]+$/;
+       var test1 = function(){
+	       if(oText.value == ""){
+			  alert("请输入用户名");
+			  oText.focus();
+		   } else if (!reg.test(oText.value)){
+		      alert("用户名由字母数字下划线组成");
+			  oText.focus();
+		   } else if (reg.test(oText.value) && oTextarea.value == ""){
+			  alert("说点什么吧"); 
+			  oTextarea.focus();
+		   } else if (reg.test(oText.value) && oTextarea.value != ""){
+		
+			  oUl.insertBefore(node,oUl.childNodes[0]); 
+			  mv.view.changeDel();
+			  
+			  var oli=oUl.getElementsByTagName("li")[0];
+			  var oImg=oli.getElementsByTagName("img");
+			  var oP=oli.getElementsByTagName("p")[0];
+			  var oSpan1=oP.getElementsByTagName("span")[0];
+			  var oSpan2=oP.getElementsByTagName("span")[1];
+			  var oTime = oli.getElementsByClassName("time-change")[0];
+			  var aImg=document.getElementsByClassName("user-head")[0].getElementsByTagName("img");
+              var today = new Date(); 
+			  
+			  
+			  oTime.innerHTML = today.getMonth()+"月"+today.getDate()+"日"+" "+today.getHours()+":"+today.getMinutes();    
+			  oSpan1.innerHTML=oText.value;
+			  oSpan2.innerHTML=oTextarea.value;	
+			  
+			  for(var i=0;i<aImg.length;i++){
+				  if(aImg[i].className.indexOf("r") && aImg[i].className.indexOf("r")!= -1) {
+					         oImg[0].src = aImg[i].src;
+				  } 
+			  }
+			  form.reset();
+			  for(var i=0;i<aImg.length;i++){
+				  aImg[i].removeAttribute("class","imgChange current");  
+			  }
+		   }
+	   };
+   test1();
+   };
+  
+   mv.control.EventUtil.addHandler(oBtn,"click",submitHandler);
+   
+   
+   var numChangeHandler=function(event){
+       var num=oTextarea.maxlength? oTextarea.maxlength:oTextarea.value.length;
+       var oBroadcast = document.getElementsByClassName("broadcast")[0];
+       var oSpan = oBroadcast.getElementsByTagName("span")[0];
+   
+       if(num>150){
+	     oTextarea.disabled = true;
+       } else if (num<150) {
+	     oSpan.innerHTML = 150-num;    
+       }
+   };
+   mv.control.EventUtil.addHandler(oBtn,"click",numChangeHandler);
+   mv.control.EventUtil.addHandler(oTextarea,"change",numChangeHandler);
+   mv.control.EventUtil.addHandler(oTextarea,"blur",numChangeHandler);
+   mv.control.EventUtil.addHandler(oTextarea,"keyup",numChangeHandler);
+};
+
+
+mv.view = {};
+
+mv.view.changeOpacity=function(){
+	
+   var oImg=document.getElementsByClassName("user-head")[0].getElementsByTagName("img");
+   var IsClicked = false;
+   var event=mv.control.EventUtil.getEvent(event);
+	
+   for(var i = 0; i<oImg.length;i++){
+	   var opacity=function(event){
+		   if(event.type == "mouseover"){
+		               mv.control.EventUtil.getTarget(event).setAttribute("class","imgChange"); 
+		   } else if (event.type == "mouseout"){ 
+			          if(!IsClicked){
+				         mv.control.EventUtil.getTarget(event).removeAttribute("class","imgChange"); 
+				       } else {
+				         IsClicked=false;
+				       }
+		   } else if (event.type == "click"){
+			           for(var i = 0; i<oImg.length;i++){
+				         oImg[i].removeAttribute("class","imgChange current");   	
+				       }
+			           mv.control.EventUtil.getTarget(event).className = "imgChange current";
+				       IsClicked=true;
+		   }	
+	   };
+	   mv.control.EventUtil.addHandler(oImg[i],"mouseover",opacity);
+	   mv.control.EventUtil.addHandler(oImg[i],"mouseout",opacity);
+	   mv.control.EventUtil.addHandler(oImg[i],"click",opacity);
+	};
+};
+
+mv.view.changeDel=function(){
+	
+   var dels=document.getElementsByClassName("del");
+   var oUl=document.getElementsByClassName("main-ul")[0];
+   var oLi=document.getElementsByClassName("main-ul")[0].getElementsByTagName("li");
+   var event=mv.control.EventUtil.getEvent(event);
+   var a ;
+   for(var i = 0;i<oLi.length;i++){
+	   
+	   var backhandler = function(event){
+		 switch(event.type){
+		        case "mouseover":
+			          this.setAttribute("class","back"); 
+				      break;
+			    case "mouseout":
+			          this.removeAttribute("class","back");
+				      break;	 
+		 }
+	   }; 
+       
+	   dels[i].i = i;
+	   var delhandler = function(){
+		   oUl.removeChild(oUl.childNodes[this.i]);
+	   };
+	   
+	   mv.control.EventUtil.addHandler(oLi[i],"mouseover",backhandler );
+       mv.control.EventUtil.addHandler(oLi[i],"mouseout",backhandler );
+	   mv.control.EventUtil.addHandler(dels[i],"click",delhandler );
+   };
+};
+
+mv.control = {};
+mv.control.EventUtil = {  
+     
+    addHandler:function(element,type,handler){  
+        if(element.addEventListener){  
+            element.addEventListener(type,handler,false);  
+        } else if (element.attachEvent){  
+            element.attachEvent("on"+type,handler);  
+        } else {  
+            element["on"+type]=handler;  
+        }  
+    },  
+  
+    getEvent:function(event){  
+        return event ? event : window.event;  
+    },  
+
+    getTarget:function(event){  
+        return event.target || event.srcElement;  
+    },
+	getCharCode:function(event){
+	    if(typeof event.charCode == "number"){
+		    return event.charCode;	
+		} else {
+		    return event.keyCode;	
+		}	
+	},  
+  
+    preventDefault:function(event){  
+        if(event.preventDefault){  
+            event.preventDefault();  
+        } else {  
+            event.returnValue = false;  
+        }  
+    },  
+      
+    removeHandler:function(element,type,handler){  
+        if(element.removeEventListener){  
+            element.removeEventListener(type,handler,false);  
+        } else if (element.detachEvent){  
+            element.detachEvent("on"+type,handler);  
+        } else {  
+            element["on"+type]= null;  
+        }  
+    },  
+    
+    stopPropagation:function(event){  
+        if(event.stopPropagation){  
+            event.stopPropogation(); 
+        } else {  
+            event.cancelBubble = true;  
+        }  
+    } 
+};  
+</script>
+
